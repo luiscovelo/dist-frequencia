@@ -10,8 +10,6 @@ let MapaObjeto = {
 
 function init(){
 
-	MapaObjeto.intervaloDeValores    = obterValores();
-	MapaObjeto.numeroDeItensPorValor = obterItens();
 	MapaObjeto.mediaDosIntervalos    = obterMediaDosValores();
 	MapaObjeto.totalItens            = obterTotalDeItens();
 	MapaObjeto.fi_percent            = fi_percent();
@@ -20,27 +18,6 @@ function init(){
 
 	render(MapaObjeto);
 	
-}
-
-init();
-
-function obterValores(){
-
-	let valores = [
-		'100 - 200',
-		'200 - 300',
-		'300 - 400',
-		'400 - 500'
-	];
-	return valores;
-
-}
-
-function obterItens(){
-
-	let itens = [10,4,3,3];
-	return itens;
-
 }
 
 function obterMediaDosValores( { intervaloDeValores } = MapaObjeto ){
@@ -90,17 +67,37 @@ function Fi_percent( { Fi, totalItens } = MapaObjeto ){
 function render(dataArr){
 
 	let tbodyFrequencia = document.getElementById("tbodyFrequencia");
+	let tr_td_html = '';
 	for(let index = 0; index < dataArr.intervaloDeValores.length; index++){
 		
-		let tr_td_html = `
+		tr_td_html += `
+		<tr>
 			<td>${dataArr.intervaloDeValores[index]}</td>
 			<td>${dataArr.mediaDosIntervalos[index]}</td>
 			<td>${dataArr.numeroDeItensPorValor[index]}</td>
 			<td>${dataArr.fi_percent[index]} %</td>
 			<td>${dataArr.Fi[index]}</td>
 			<td>${dataArr.Fi_percent[index]} %</td>
+		</tr>
 		`
-		tbodyFrequencia.innerHTML += tr_td_html;
 	}	
+	tbodyFrequencia.innerHTML = tr_td_html;
+}
+
+function entradaDados(){
+
+	let intervaloArr = [];
+	let itensArr = [];
+
+	primeiro_valor = document.querySelector("#primeiro_valor").value;
+	segundo_valor  = document.querySelector("#segundo_valor").value;
+	n_itens        = document.querySelector("#n_itens").value;
+	
+	MapaObjeto.intervaloDeValores.push( `${primeiro_valor} - ${segundo_valor}` );
+	MapaObjeto.numeroDeItensPorValor.push( parseFloat(n_itens) );
+	
+	console.log(MapaObjeto.intervaloDeValores)
+
+	init();
 
 }
