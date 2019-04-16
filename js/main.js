@@ -12,11 +12,11 @@ function init(){
 
 	MapaObjeto.intervaloDeValores    = obterValores();
 	MapaObjeto.numeroDeItensPorValor = obterItens();
-	MapaObjeto.mediaDosIntervalos    = obterMediaDosValores(MapaObjeto.intervaloDeValores);
-	MapaObjeto.totalItens            = obterTotalDeItens(MapaObjeto.numeroDeItensPorValor);
-	MapaObjeto.fi_percent            = fi_percent(MapaObjeto.numeroDeItensPorValor, MapaObjeto.totalItens);
-	MapaObjeto.Fi                    = Fi(MapaObjeto.numeroDeItensPorValor);
-	MapaObjeto.Fi_percent            = Fi_percent(MapaObjeto.Fi,MapaObjeto.totalItens);
+	MapaObjeto.mediaDosIntervalos    = obterMediaDosValores();
+	MapaObjeto.totalItens            = obterTotalDeItens();
+	MapaObjeto.fi_percent            = fi_percent();
+	MapaObjeto.Fi                    = Fi();
+	MapaObjeto.Fi_percent            = Fi_percent();
 
 	render(MapaObjeto);
 	
@@ -43,40 +43,40 @@ function obterItens(){
 
 }
 
-function obterMediaDosValores(dataArr){
+function obterMediaDosValores( { intervaloDeValores } = MapaObjeto ){
 	
-	let mediaDosValores = dataArr.map( item => {
+	let mediaDosValores = intervaloDeValores.map( item => {
 		let indexValor = item.split('-');
 		return ( ( parseFloat(indexValor[0]) + parseFloat(indexValor[1]) )/2);
 	})
 	return mediaDosValores;
 }
 
-function obterTotalDeItens(dataArr){
-	return dataArr.reduce( (total,valor) => total+valor );
+function obterTotalDeItens( { numeroDeItensPorValor } = MapaObjeto ){
+	return numeroDeItensPorValor.reduce( (total,valor) => total+valor );
 }
 
-function fi_percent(dataArr,totalItens){
-	
+function fi_percent( { numeroDeItensPorValor,totalItens } = MapaObjeto ){
+
 	let fi_percent = [];
-	for(let index = 0; index < dataArr.length; index++ ){
-		fi_percent.push( (dataArr[index]*100)/totalItens );	
+	for(let index = 0; index < numeroDeItensPorValor.length; index++ ){
+		fi_percent.push( (numeroDeItensPorValor[index]*100)/totalItens );	
 	}
 	return fi_percent;
 
 }
 
-function Fi(dataArr){
+function Fi( { numeroDeItensPorValor } = MapaObjeto ){
 
 	let Fi = [];
-	for(let index = 0; index < dataArr.length; index++ ){
+	for(let index = 0; index < numeroDeItensPorValor.length; index++ ){
 		
 		if(index==0){
-			Fi.push(dataArr[index]);
+			Fi.push(numeroDeItensPorValor[index]);
 		}else{
-			let sum = dataArr[index];
+			let sum = numeroDeItensPorValor[index];
 			for(let indexFor = 0; indexFor < index; indexFor++) {
-				sum += dataArr[indexFor];
+				sum += numeroDeItensPorValor[indexFor];
 			}
 			Fi.push(sum);
 		}
@@ -86,11 +86,11 @@ function Fi(dataArr){
 
 }
 
-function Fi_percent(dataArr, totalItens){
+function Fi_percent( { Fi, totalItens } = MapaObjeto ){
 	
 	let Fi_percent = [];
-	for(let index = 0; index < dataArr.length; index++ ){
-		Fi_percent.push( (dataArr[index]*100)/totalItens );	
+	for(let index = 0; index < Fi.length; index++ ){
+		Fi_percent.push( (Fi[index]*100)/totalItens );	
 	}
 	return Fi_percent;
 }
