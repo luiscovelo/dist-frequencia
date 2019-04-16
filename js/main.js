@@ -69,18 +69,10 @@ function fi_percent( { numeroDeItensPorValor,totalItens } = MapaObjeto ){
 function Fi( { numeroDeItensPorValor } = MapaObjeto ){
 
 	let Fi = [];
+	let sum = 0;
 	for(let index = 0; index < numeroDeItensPorValor.length; index++ ){
-		
-		if(index==0){
-			Fi.push(numeroDeItensPorValor[index]);
-		}else{
-			let sum = numeroDeItensPorValor[index];
-			for(let indexFor = 0; indexFor < index; indexFor++) {
-				sum += numeroDeItensPorValor[indexFor];
-			}
-			Fi.push(sum);
-		}
-
+		sum += numeroDeItensPorValor[index];
+		Fi.push(sum);
 	}
 	return Fi;	
 
