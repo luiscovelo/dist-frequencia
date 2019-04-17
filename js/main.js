@@ -2,6 +2,7 @@ let MapaObjeto = {
 	intervaloDeValores: [],
 	numeroDeItensPorValor: [],
 	mediaDosIntervalos: [],
+	mediaTotalDosIntervalos: 0,
 	totalItens: 0,
 	fi_percent: [],
 	Fi: [],
@@ -15,6 +16,7 @@ function init(){
 	MapaObjeto.fi_percent            = fi_percent();
 	MapaObjeto.Fi                    = Fi();
 	MapaObjeto.Fi_percent            = Fi_percent();
+	MapaObjeto.mediaTotalDosIntervalos = obterMediaTotalDosValores();
 
 	render(MapaObjeto);
 	
@@ -31,6 +33,16 @@ function obterMediaDosValores( { intervaloDeValores } = MapaObjeto ){
 
 function obterTotalDeItens( { numeroDeItensPorValor } = MapaObjeto ){
 	return numeroDeItensPorValor.reduce( (total,valor) => total+valor );
+}
+
+function obterMediaTotalDosValores( { mediaDosIntervalos,numeroDeItensPorValor, totalItens } = MapaObjeto ){
+	
+	let sum = 0;
+	for(let index = 0; index < mediaDosIntervalos.length; index++){
+		sum += parseFloat(mediaDosIntervalos[index]) * parseFloat(numeroDeItensPorValor[index]);
+	}
+	return (sum/totalItens);
+
 }
 
 function fi_percent( { numeroDeItensPorValor,totalItens } = MapaObjeto ){
@@ -81,7 +93,20 @@ function render(dataArr){
 		</tr>
 		`
 	}	
+
+	tr_td_media = `
+	<tr>
+		<td colspan="1"><strong>Média</strong></td>
+		<td colspan="1">${parseFloat(dataArr.mediaTotalDosIntervalos).toFixed(2)}</td>
+		<td colspan="1">${dataArr.totalItens}</td>
+		<td colspan="1">100.00%</td>
+		<td colspan="1"></td>
+		<td colspan="1"></td>
+	</tr>
+	`
 	tbodyFrequencia.innerHTML = tr_td_html;
+	tbodyFrequencia.innerHTML = tr_td_html+tr_td_media;
+
 }
 
 function validarIgualdade( intervaloDeValores, valor ){
