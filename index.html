@@ -5,6 +5,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Distribuição de Frequência</title>
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<style>
 		td,th,h3 {
 			text-align: center;
@@ -48,6 +50,14 @@
 		                </div>
 		            </div>
 		        </div>
+	
+				<hr>
+				<h3>GRÁFICO</h3>
+				<hr>
+	
+				<div class="row">
+					<canvas id="graf-ogiva"></canvas>
+				</div>
 
 			</div>
 			<div class="col-md-8">
@@ -57,12 +67,22 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th>Intervalo de Valores</th>
-							<th>Média dos Valores</th>
-							<th>fi</th>
-							<th>fi(%)</th>
-							<th>Fi</th>
-							<th>Fi(%)</th>
+							<th>Intervalo</th>
+							<th>Média do Intervalo</th>
+							<th>
+								fi <i class="fa fa-exclamation-circle" title="Frequência Absoluta"></i>
+							</th>
+							<th>
+								fi(%) <i class="fa fa-exclamation-circle" title="Frequência Relativa"></i>
+							</th>
+							<th>
+								Fi 
+								<i class="fa fa-exclamation-circle" title="Frequência Absoluta Acumulada"></i>
+							</th>
+							<th>
+								Fi(%) 
+								<i class="fa fa-exclamation-circle" title="Frequência Relativa Acumulada"></i>
+							</th>
 						</tr>
 					</thead>
 					<tbody id="tbodyFrequencia"></tbody>

@@ -19,7 +19,7 @@ function init(){
 	MapaObjeto.mediaTotalDosIntervalos = obterMediaTotalDosValores();
 
 	render(MapaObjeto);
-	
+	grafico_ogiva();
 }
 
 function obterMediaDosValores( { intervaloDeValores } = MapaObjeto ){
@@ -168,5 +168,34 @@ function entradaDados(){
 
 	init();
 	resetarInputs();
+
+}
+
+function grafico_ogiva(){
+
+	var ctx = document.getElementById('graf-ogiva').getContext('2d');
+	var chart = new Chart(ctx, {
+	    // The type of chart we want to create
+	    type: 'line',
+
+	    // The data for our dataset
+	    data: {
+	        labels: MapaObjeto.intervaloDeValores,
+	        datasets: [{
+	            label: "Ogiva (F'i: Frequência relativa acumulada)",
+	            borderColor: 'rgb(48, 54, 65)',
+	            data: MapaObjeto.Fi_percent
+	        }]
+	    },
+
+	    // Configuration options go here
+	    options: {
+            elements: {
+                line: {
+                    tension: 0, // disables bezier curves
+                }
+            }
+        }
+	});
 
 }
