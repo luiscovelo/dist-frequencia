@@ -9,7 +9,9 @@ let MapaObjeto = {
 	Fi_percent: [],
 }
 
-function init(){
+function init(conjuntoSaved = 0){
+	
+	if(conjuntoSaved==0){
 
 	MapaObjeto.mediaDosIntervalos    = obterMediaDosValores();
 	MapaObjeto.totalItens            = obterTotalDeItens();
@@ -19,7 +21,14 @@ function init(){
 	MapaObjeto.mediaTotalDosIntervalos = obterMediaTotalDosValores();
 
 	render(MapaObjeto);
+	
+	}else{
+		MapaObjeto = conjuntoSaved;
+		render(MapaObjeto);
+	}
+	
 	grafico_ogiva();
+
 }
 
 function obterMediaDosValores( { intervaloDeValores } = MapaObjeto ){
@@ -197,5 +206,34 @@ function grafico_ogiva(){
             }
         }
 	});
+
+}
+
+function restaurar(){
+
+	let conjunto = localStorage.getItem("MapaObjeto");
+	conjunto = JSON.parse(conjunto);
+		
+	init(conjunto.obj);
+
+}
+
+function salvar(){
+	
+	let nome = prompt("Para salvar, informe um nome para os dados:");
+	
+	if(nome==null){
+		return false;
+	}else if(nome==''){
+		alert("Você deve informar um nome para salvar.");
+		return false;
+	}
+	
+	let MapaObjetoSave = {
+		nome: nome,
+		obj: MapaObjeto
+	}
+	
+	localStorage.setItem("MapaObjeto", JSON.stringify(MapaObjetoSave));
 
 }
